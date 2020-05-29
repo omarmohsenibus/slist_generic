@@ -36,6 +36,14 @@ void delete(struct node *list) {
 		free(tmp);
 	}
 }
+void delete_head(struct node *list){
+	if(list != NULL){
+		struct node *tmp = list;
+		list = tmp->next;
+		tmp->next = NULL;
+		free(tmp);	
+	}
+}
 
 
 void *min_list(const struct node *list, const void *field) {
