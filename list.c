@@ -4,6 +4,20 @@ bool is_empty(const struct node *list) {
 	return list == NULL;
 }
 
+size_t count(const struct node *list){
+	size_t result = 0;
+	
+	if(list != NULL){
+		const struct node *tmp = list;
+		while(tmp != NULL){
+			result++;
+			tmp = tmp->next;
+		}
+	}
+	
+	return result;
+}
+
 struct node *insert_head(struct node *list, const void *data, size_t data_size) {
 	struct node *new_node = malloc(sizeof(struct node));
 	new_node->data = malloc(data_size);

@@ -26,6 +26,7 @@ extern void delete_at(int index, struct node *list, const void *data);
 extern void delete(struct node *list);
 
 extern bool is_empty(const struct node *list);
+extern size_t count(const struct node *list);
 
 extern const void *get_head_data(const struct node *list);
 extern const void *get_tail_data(const struct node *list);
