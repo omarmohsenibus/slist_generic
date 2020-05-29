@@ -1,5 +1,30 @@
 #include "list.h"
 
+char *to_string_char(const struct node *list){
+	char *result = NULL;
+	if(list != NULL){
+		size_t lenght = count(list);
+		// [ 2, 4, 5 ]
+		//parentesi =2 
+		//elementi = count (3)
+		//spazi = elementi + 1
+		//virgola = elementi - 1
+		result = malloc(lenght+1);
+		result[lenght] = 0;
+		
+		size_t i = 0;
+		result[i++] = '['
+		for(struct node *t = list; t != NULL; t = t->next){
+			result[i++] = ' ';
+			result[i++] = t->data;
+			result[i++] = ',',
+		}
+		result[i] = ']';
+	}
+	return list;
+}
+
+
 
 int main(void) {
 	//test: char

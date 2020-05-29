@@ -1,5 +1,6 @@
 #include "list.h"
 
+
 bool is_empty(const struct node *list) {
 	return list == NULL;
 }
@@ -75,4 +76,15 @@ const void *get_tail_data(const struct node *list) {
 	}
 
 	return result;
+}
+
+//custom function
+void set_to_string(struct node *this, char *(to_string)(struct node *this)){
+	this->to_string = to_string;
+}
+void set_equals(struct node *this, bool (equals)(struct node *a, struct node *b)){
+	this->equals = equals;
+}
+void set_compare(struct node *this, int (compare)(struct node *a, struct node *b)){
+	this->compare = compare;
 }
