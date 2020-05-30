@@ -1,36 +1,47 @@
 #include "list.h"
 
-char *to_string_char(const struct node *list){
+char *to_string_char(const struct node *list) {
 	char *result = NULL;
-	if(list != NULL){
+	if (list != NULL) {
 		size_t lenght = count(list);
 		// [ 2, 4, 5 ]
 		//parentesi =2 
 		//elementi = count (3)
 		//spazi = elementi + 1
 		//virgola = elementi - 1
-		result = malloc(lenght+1);
+		result = malloc(lenght + 1);
 		result[lenght] = 0;
-		
+
 		size_t i = 0;
-		result[i++] = '['
-		for(struct node *t = list; t != NULL; t = t->next){
+		result[i++] = '[';
+		for (const struct node *t = list; t != NULL; t = t->next) {
 			result[i++] = ' ';
-			result[i++] = t->data;
-			result[i++] = ',',
+			char *data = t->data;
+			result[i++] = *data;
+			result[i++] = ',';
 		}
 		result[i] = ']';
 	}
-	return list;
+	return result;
 }
 
+int compare_char(void *a, void *b) {
+	char *value_a = (char *)a;
+	char *value_b = (char *)b;
+
+	return *value_a - *value_b;
+}
+
+int compare_string(void *a, void *b) {
+	return strcmp(a, b);
+}
 
 
 int main(void) {
 	//test: char
 	struct node *list = NULL;
 	struct node *tmp = NULL;
-	
+
 	{
 		char a = 'a';
 		char b = 'b';
@@ -131,10 +142,12 @@ int main(void) {
 	{
 		char i[] = "test";
 		char l[] = "prova";
+		char m[] = "abaco";
 
 		list = NULL;
 		list = insert_head(list, &i, strlen(i) + 1);
 		list = insert_head(list, &l, strlen(l) + 1);
+		list = insert_head(list, &m, strlen(m) + 1);
 
 		tmp = list;
 		printf("\tlista di stringhe c: ");
@@ -147,10 +160,10 @@ int main(void) {
 		printf("]\n");
 		const char *head_data = get_head_data(list);
 		printf("Head of the list: %s\n", head_data);
+		printf("Max of the list: %s\n", (char *) max_list(list, compare_string));
 
 		delete(list);
 	}
-
 	//test: struct Persona
 	{
 		struct persona {

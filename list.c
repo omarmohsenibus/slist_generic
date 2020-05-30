@@ -5,17 +5,17 @@ bool is_empty(const struct node *list) {
 	return list == NULL;
 }
 
-size_t count(const struct node *list){
+size_t count(const struct node *list) {
 	size_t result = 0;
-	
-	if(list != NULL){
+
+	if (list != NULL) {
 		const struct node *tmp = list;
-		while(tmp != NULL){
+		while (tmp != NULL) {
 			result++;
 			tmp = tmp->next;
 		}
 	}
-	
+
 	return result;
 }
 
@@ -37,23 +37,34 @@ void delete(struct node *list) {
 		free(tmp);
 	}
 }
-void delete_head(struct node *list){
-	if(list != NULL){
+void delete_head(struct node *list) {
+	if (list != NULL) {
 		struct node *tmp = list;
 		list = tmp->next;
 		tmp->next = NULL;
-		free(tmp);	
+		free(tmp);
 	}
 }
 
 
-void *min_list(const struct node *list, const void *field) {
-	return 0;
+void *min_list(const struct node *list, int (*compare)(void *a, void *b)) {
+	void *min = list->data;
+	for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+		if (compare(min, tmp->data) > 0) {
+			min = tmp->data;
+		}
+	}
+	return min;
 }
-void *max_list(const struct node *list, const void *field) {
-	return 0;
+void *max_list(const struct node *list, int (*compare)(void *a, void *b)) {
+	void *max = list->data;
+	for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+		if (compare(max, tmp->data) < 0) {
+			max = tmp->data;
+		}
+	}
+	return max;
 }
-
 const void *get_head_data(const struct node *list) {
 	void *result = NULL;
 
@@ -78,13 +89,21 @@ const void *get_tail_data(const struct node *list) {
 	return result;
 }
 
-//custom function
-void set_to_string(struct node *this, char *(to_string)(struct node *this)){
-	this->to_string = to_string;
-}
-void set_equals(struct node *this, bool (equals)(struct node *a, struct node *b)){
-	this->equals = equals;
-}
-void set_compare(struct node *this, int (compare)(struct node *a, struct node *b)){
-	this->compare = compare;
+
+
+struct node *insert_all(struct node *list, size_t data_size, size_t count, ...) {
+	va_list arg_pointer;
+	va_start(arg_pointer, count);
+
+	if (data_size < 4)	data_size = 4;
+
+	while (count != 0) {
+		const void *data = arg_pointer;
+		list = insert_head(list, data, data_size);
+
+		arg_pointer = arg_pointer + data_size;
+		count--;
+	}
+
+	return list;
 }

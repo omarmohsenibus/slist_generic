@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #if !defined LIST_H
 #define LIST_H
 
@@ -5,17 +6,12 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdarg.h>
 
-	
 
 struct node {
 	void *data;
 	struct node *next;
-	
-	//custom function
-	char *(*to_string)(const struct node *this);
-	bool (*equals)(const struct node *a, const struct node *b);
-	int (*compare)(const struct node *a, const struct node *b);
 
 };
 
@@ -24,12 +20,7 @@ enum mode {
 	DESC //descending
 };
 
-//custom functions
-extern void set_to_string(struct node *this, char *(to_string)(struct node *this));
-extern void set_equals(struct node *this, bool (equals)(struct node *a, struct node *b));
-extern void set_compare(struct node *this, int (compare)(struct node *a, struct node *b));
-
-
+extern struct node *insert_all(struct node *list, size_t data_size, size_t count, ...);
 extern struct node *insert_head(struct node *list, const void *data, size_t data_size);
 extern struct node *insert_tail(struct node *list, const void *data);
 extern struct node *insert_at(int index, struct node *list, const void *data);
@@ -54,10 +45,8 @@ extern struct node *filter(const struct node *list, const void *field, int(*cmp)
 extern struct node *reverse(const struct node *list);
 extern struct node *sort(struct node *list, int MODE);
 
-extern void *min_list(const struct node *list, const void *field);
-extern void *max_list(const struct node *list, const void *field);
-
-
+extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
+extern void *max_list(const struct node *list, int(*compare)(void *a, void *b));
 
 
 #endif //LIST_H
