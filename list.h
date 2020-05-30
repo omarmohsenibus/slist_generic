@@ -23,7 +23,9 @@ enum mode {
 extern struct node *insert_all(struct node *list, size_t data_size, size_t count, ...);
 extern struct node *insert_head(struct node *list, const void *data, size_t data_size);
 extern struct node *insert_tail(struct node *list, const void *data);
-extern struct node *insert_at(int index, struct node *list, const void *data);
+extern struct node *insert_at(int index, struct node *list, const void *data, size_t data_size);
+
+extern struct node *update_at(int index, struct node *list, const void *data, size_t data_size);
 
 extern void delete_head(struct node *list);
 extern void delete_tail(struct node *list);
@@ -37,11 +39,11 @@ extern const void *get_head_data(const struct node *list);
 extern const void *get_tail_data(const struct node *list);
 extern const void *get_data_at(int index, const struct node *list);
 
-extern int index_of(const void *data, const struct node *list);
+extern int index_of(const void *data, const struct node *list, int (*compare)(const void *a, const void *b));
 extern int last_index_of(const void *data, const struct node *list);
 
-extern const void *find(const struct node *list, const void *field, int(*cmp)(void *, void *));
-extern struct node *filter(const struct node *list, const void *field, int(*cmp)(void *, void *));
+extern struct node *find(const struct node *list, const void *field, int(*cmp)(void *, void *));
+extern struct node *filter(const struct node *list, size_t data_size, bool(*compare)(const void *node));
 extern struct node *reverse(const struct node *list);
 extern struct node *sort(struct node *list, int MODE);
 

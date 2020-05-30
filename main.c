@@ -1,193 +1,47 @@
 #include "list.h"
 
-char *to_string_char(const struct node *list) {
-	char *result = NULL;
-	if (list != NULL) {
-		size_t lenght = count(list);
-		// [ 2, 4, 5 ]
-		//parentesi =2 
-		//elementi = count (3)
-		//spazi = elementi + 1
-		//virgola = elementi - 1
-		result = malloc(lenght + 1);
-		result[lenght] = 0;
+typedef struct persona {
+	char nome[10];
+	char cognome[10];
+	char eta;
+	char categoria[20];
+} persona;
 
-		size_t i = 0;
-		result[i++] = '[';
-		for (const struct node *t = list; t != NULL; t = t->next) {
-			result[i++] = ' ';
-			char *data = t->data;
-			result[i++] = *data;
-			result[i++] = ',';
-		}
-		result[i] = ']';
-	}
-	return result;
-}
-
-int compare_char(void *a, void *b) {
-	char *value_a = (char *)a;
-	char *value_b = (char *)b;
-
-	return *value_a - *value_b;
-}
-
-int compare_string(void *a, void *b) {
-	return strcmp(a, b);
+bool filter_fun(const void *node_data) {
+	const struct persona *data = node_data;
+	return data->eta < 18 && strcmp(data->categoria, "uno") == 0;
 }
 
 
 int main(void) {
-	//test: char
 	struct node *list = NULL;
-	struct node *tmp = NULL;
+	struct node *filtered_list = NULL;
 
-	{
-		char a = 'a';
-		char b = 'b';
-		char _new = 'c';
+	persona p1 = { "omar", "mohseni", 19, "uno" };
+	persona p2 = { "filippo", "niki", 20, "due" };
+	persona p3 = { "alberto", "biki", 14, "uno" };
+	persona p4 = { "michele", "tiki", 29, "uno" };
+	persona p5 = { "riccardo", "kimi", 10, "due" };
 
-		list = insert_head(list, &a, sizeof(char));
-		list = insert_head(list, &b, sizeof(char));
-		list = insert_head(list, &_new, sizeof(char));
+	list = insert_head(list, &p1, sizeof(persona));
+	list = insert_head(list, &p2, sizeof(persona));
+	list = insert_head(list, &p3, sizeof(persona));
+	list = insert_head(list, &p4, sizeof(persona));
+	list = insert_head(list, &p5, sizeof(persona));
 
-		tmp = list;
-		printf("\tlista di char: ");
-		printf("[");
-		while (tmp != NULL) {
-			char *data = (char*)tmp->data;
-			printf(" %c,", *data);
-			tmp = tmp->next;
-		}
-		printf("]\n");
-		const char *head_data = get_head_data(list);
-		const char *tail_data = get_tail_data(list);
-		printf("Head of the list: %c\n", *head_data);
-		printf("Tail of the list: %c\n", *tail_data);
-		delete(list);
+	persona pmod = { "khema", "carlo", 21, "tre" };
+	list = update_at(2, list, &pmod, sizeof(persona));
+	
+	struct node *tmp = filtered_list;
+	printf("filtered_list : [\n");
+	while (tmp != NULL) {
+		const struct persona *data = tmp->data;
+		printf("\t{%s, %s, %d}\n", data->nome, data->cognome, data->eta);
+		tmp = tmp->next;
 	}
+	printf("]");
 
-	//test: int
-	{
-		int c = 1024;
-		int d = -1024;
-
-		list = NULL;
-		list = insert_head(list, &c, sizeof(int));
-		list = insert_head(list, &d, sizeof(int));
-
-		tmp = list;
-		printf("\tlista di int: ");
-		printf("[");
-		while (tmp != NULL) {
-			int *data = (int *)tmp->data;
-			printf(" %d, ", *data);
-			tmp = tmp->next;
-		}
-		printf("]\n");
-		const int *head_data = get_head_data(list);
-		printf("Head of the list: %d\n", *head_data);
-		delete(list);
-	}
-	//test: double
-	{
-		double e = 8.0;
-		double f = 8.2e2;
-
-		list = NULL;
-		list = insert_head(list, &e, sizeof(double));
-		list = insert_head(list, &f, sizeof(double));
-
-		tmp = list;
-		printf("\tlista di double: ");
-		printf("[");
-		while (tmp != NULL) {
-			double *data = (double *)tmp->data;
-			printf(" %lf, ", *data);
-			tmp = tmp->next;
-		}
-		printf("]\n");
-		const double *head_data = get_head_data(list);
-		printf("Head of the list: %lf\n", *head_data);
-		delete(list);
-	}
-
-
-	//test: float
-
-	{
-		float g = 2.0f;
-		float h = 2.2e2f;
-
-		list = NULL;
-		list = insert_head(list, &g, sizeof(float));
-		list = insert_head(list, &h, sizeof(float));
-
-		tmp = list;
-		printf("\tlista di float: ");
-		printf("[");
-		while (tmp != NULL) {
-			float *data = (float *)tmp->data;
-			printf(" %f, ", *data);
-			tmp = tmp->next;
-		}
-		printf("]\n");
-		const float *head_data = get_head_data(list);
-		printf("Head of the list: %f\n", *head_data);
-
-		delete(list);
-	}
-
-	//test char * (c string)
-	{
-		char i[] = "test";
-		char l[] = "prova";
-		char m[] = "abaco";
-
-		list = NULL;
-		list = insert_head(list, &i, strlen(i) + 1);
-		list = insert_head(list, &l, strlen(l) + 1);
-		list = insert_head(list, &m, strlen(m) + 1);
-
-		tmp = list;
-		printf("\tlista di stringhe c: ");
-		printf("[");
-		while (tmp != NULL) {
-			char *data = (char *)tmp->data;
-			printf(" %s, ", data);
-			tmp = tmp->next;
-		}
-		printf("]\n");
-		const char *head_data = get_head_data(list);
-		printf("Head of the list: %s\n", head_data);
-		printf("Max of the list: %s\n", (char *) max_list(list, compare_string));
-
-		delete(list);
-	}
-	//test: struct Persona
-	{
-		struct persona {
-			char nome[10];
-			int eta;
-		};
-		struct persona p1 = { "Omar", 19 };
-		struct persona p2 = { "Marco", 45 };
-		list = NULL;
-		list = insert_head(list, &p1, sizeof(struct persona));
-		list = insert_head(list, &p2, sizeof(struct persona));
-
-		tmp = list;
-		printf("\tlista di struct persona: ");
-		printf("[");
-		while (tmp != NULL) {
-			struct persona *data = (struct persona *)tmp->data;
-			printf(" { nome: %s, eta: %d }, ", data->nome, data->eta);
-			tmp = tmp->next;
-		}
-		printf("]\n");
-		const struct persona *head_data = get_head_data(list);
-		printf("Head of the list: { nome: %s, eta: %d }\n", head_data->nome, head_data->eta);
-		delete(list);
-	}
+	delete(list);
+	delete(filtered_list);
 	return 0;
 }
