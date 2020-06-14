@@ -5,7 +5,7 @@ bool is_empty(const struct node *list) {
 	return list == NULL;
 }
 
-size_t count(const struct node *list) {
+int count(const struct node *list) {
 	size_t result = 0;
 	if (list != NULL) {
 		const struct node *tmp = list;
@@ -35,7 +35,7 @@ struct node *insert_tail(struct node *list, const void *data) {
 
 struct node *insert_at(int index, struct node *list, const void *data, size_t data_size) {
 	struct node *new_node = NULL;
-	size_t lenght = count(list);
+	int lenght = count(list);
 	size_t i = 0;
 
 	if (index == 0) return insert_head(list, data, data_size);
@@ -78,7 +78,7 @@ void delete_head(struct node *list) {
 }
 
 
-void *min_list(const struct node *list, int (*compare)(void *a, void *b)) {
+void *min_list(const struct node *list, int(*compare)(void *a, void *b)) {
 	void *min = list->data;
 	for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
 		if (compare(min, tmp->data) > 0) {
@@ -87,7 +87,7 @@ void *min_list(const struct node *list, int (*compare)(void *a, void *b)) {
 	}
 	return min;
 }
-void *max_list(const struct node *list, int (*compare)(void *a, void *b)) {
+void *max_list(const struct node *list, int(*compare)(void *a, void *b)) {
 	void *max = list->data;
 	for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
 		if (compare(max, tmp->data) < 0) {
@@ -168,10 +168,10 @@ struct node *filter(const struct node *list, size_t data_size, bool(*compare)(co
 
 struct node* find(int index, const struct node *list) {
 	struct node *node = NULL;
-	size_t len = count(list);
-	if (index >=  0 && index < len) {
+	int len = count(list);
+	if (index >= 0 && index < len) {
 		struct node *tmp = list;
-		
+
 		for (int i = 0; i < len; i++) {
 			if (index == i) {
 				node = tmp;
@@ -194,4 +194,30 @@ struct node *update_at(int index, struct node *list, const void *data, size_t da
 		}
 	}
 	return result;
+}
+void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(void *a, void *b), int MODE) {
+	if (*list != NULL) {
+		struct node *curr = *list;
+		struct node *succ = NULL;
+
+		while (curr != NULL) {
+			succ = (*list)->next;
+			while (succ != NULL) {
+				switch (MODE){
+					case ASC:
+						if (cmp(curr->data, succ->data) > 0) {
+							swap(curr->data, succ->data);
+						}
+						break;
+					case DESC:
+						if (cmp(curr->data, succ->data) < 0) {
+							swap(curr->data, succ->data);
+						}
+						break;
+				}
+				succ = succ->next;
+			}
+			curr = curr->next;
+		}
+	}
 }
