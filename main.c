@@ -32,6 +32,8 @@ int main(void) {
 	persona pmod = { "khema", "carlo", 21, "tre" };
 	list = update_at(2, list, &pmod, sizeof(persona));
 	
+
+
 	struct node *tmp = filtered_list;
 	printf("filtered_list : [\n");
 	while (tmp != NULL) {

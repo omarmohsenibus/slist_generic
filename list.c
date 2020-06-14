@@ -218,6 +218,7 @@ struct node *update_at(int index, struct node *list, const void *data, size_t da
 	}
 	return result;
 }
+
 void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(void *a, void *b), int MODE) {
 	if (*list != NULL) {
 		struct node *curr = *list;

@@ -127,6 +127,59 @@ extern int index_of(const void *data, const struct node *list, int(*compare)(con
 extern int last_index_of(const void *data, const struct node *list);
 
 extern struct node *find(int index, const struct node *list);
+
+
+/**
+ * @brief filter the list
+ * 
+ * This function return a new list with the elements that
+ * satisfy the conditions in the function pointer
+ * 
+ * @p Example
+ * Let's define this structure
+ * @code{.c}
+ * struct persona {
+ *	char nome[10];
+ *	char cognome[10];
+ *	char eta;
+ *	char categoria[20];
+ *};
+ * @endcode
+ * Then fill the list of struct persona
+ * @code{.c}
+ * 
+ * struct persona p1 = { "omar", "mohseni", 19, "uno" };
+ * struct persona p2 = { "filippo", "niki", 20, "due" };
+ * struct persona p3 = { "alberto", "biki", 14, "uno" };
+ * struct persona p4 = { "michele", "tiki", 29, "uno" };
+ * struct persona p5 = { "riccardo", "kimi", 10, "due" };
+ * 
+ * list = insert_head(list, &p1, sizeof(struct persona));
+ * list = insert_head(list, &p2, sizeof(struct persona));
+ * list = insert_head(list, &p3, sizeof(struct persona));
+ * list = insert_head(list, &p4, sizeof(struct persona));
+ * list = insert_head(list, &p5, sizeof(struct persona));
+ * @endcode
+ * Let's define the function that will filter the list (ex. filter by categoria and eta)
+ * @code{.c}
+ * bool filter_fun(const void *node_data) {
+ *	const struct persona *data = node_data;
+ *	return data->eta < 18 && strcmp(data->categoria, "uno") == 0;
+ * }
+ * @endcode
+ * And if we call the function 
+ * @code{.c}
+ * struct node *filtered_list = filter(list, sizeof(struct persona), filter_fun); 
+ * @endcode  
+ * The result is:
+ * @verbatim filtered_list = { "alberto", "biki", 14, "uno" }; @endverbatim
+ * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
+ * @param data_size @p size_t size of the data
+ * @param compare @p bool(*)(const @p void*) function pointer that point to the condition function
+ * @return
+ * - @brief @p NULL if the list is empty
+ * - @brief @p newlist @p (struct @p node*) if the list isn't empty and there are elements that fit the condition
+ */
 extern struct node *filter(const struct node *list, size_t data_size, bool(*compare)(const void *node));
 extern struct node *reverse(const struct node *list);
 extern void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(void *a, void *b), int MODE);
@@ -169,7 +222,7 @@ extern void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(vo
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
  * @return
  * - @brief @p NULL if the list is empty
- * - @brief @p void* if the list isn't empty
+ * - @brief @p void* to the area of the memory if the list isn't empty
  */
 extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
 
@@ -211,7 +264,7 @@ extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
  * @return
  * - @brief @p NULL if the list is empty
- * - @brief @p void* if the list isn't empty
+ * - @brief @p void* to the area of the memory if the list isn't empty
  */
 extern void *max_list(const struct node *list, int(*compare)(void *a, void *b));
 

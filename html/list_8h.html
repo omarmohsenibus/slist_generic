@@ -171,8 +171,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>last_index_of</b> (con
 <tr class="memitem:af520f1a7da3f6924e3c91784389d38fe"><td class="memItemLeft" align="right" valign="top"><a id="af520f1a7da3f6924e3c91784389d38fe"></a>
 struct <a class="el" href="structnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>find</b> (int index, const struct <a class="el" href="structnode.html">node</a> *list)</td></tr>
 <tr class="separator:af520f1a7da3f6924e3c91784389d38fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7062886fa702f8865ff5a70994876f5"><td class="memItemLeft" align="right" valign="top"><a id="ae7062886fa702f8865ff5a70994876f5"></a>
-struct <a class="el" href="structnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>filter</b> (const struct <a class="el" href="structnode.html">node</a> *list, size_t data_size, bool(*compare)(const void *<a class="el" href="structnode.html">node</a>))</td></tr>
+<tr class="memitem:ae7062886fa702f8865ff5a70994876f5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="list_8h.html#ae7062886fa702f8865ff5a70994876f5">filter</a> (const struct <a class="el" href="structnode.html">node</a> *list, size_t data_size, bool(*compare)(const void *<a class="el" href="structnode.html">node</a>))</td></tr>
+<tr class="memdesc:ae7062886fa702f8865ff5a70994876f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter the list  <a href="list_8h.html#ae7062886fa702f8865ff5a70994876f5">More...</a><br /></td></tr>
 <tr class="separator:ae7062886fa702f8865ff5a70994876f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79fc79918630666ebbfdb755bee11012"><td class="memItemLeft" align="right" valign="top"><a id="a79fc79918630666ebbfdb755bee11012"></a>
 struct <a class="el" href="structnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>reverse</b> (const struct <a class="el" href="structnode.html">node</a> *list)</td></tr>
@@ -367,6 +367,78 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sort</b> (struct <a c
 
 </div>
 </div>
+<a id="ae7062886fa702f8865ff5a70994876f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7062886fa702f8865ff5a70994876f5">&#9670;&nbsp;</a></span>filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structnode.html">node</a>* filter </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structnode.html">node</a> *&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(const void *<a class="el" href="structnode.html">node</a>)&#160;</td>
+          <td class="paramname"><em>compare</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filter the list </p>
+<p>This function return a new list with the elements that satisfy the conditions in the function pointer</p>
+<p><code>Example</code> Let's define this structure </p><div class="fragment"><div class="line"> <span class="keyword">struct </span>persona {</div>
+<div class="line">    <span class="keywordtype">char</span> nome[10];</div>
+<div class="line">    <span class="keywordtype">char</span> cognome[10];</div>
+<div class="line">    <span class="keywordtype">char</span> eta;</div>
+<div class="line">    <span class="keywordtype">char</span> categoria[20];</div>
+<div class="line">};</div>
+</div><!-- fragment --><p> Then fill the list of struct persona </p><div class="fragment"><div class="line"><span class="keyword">struct </span>persona p1 = { <span class="stringliteral">&quot;omar&quot;</span>, <span class="stringliteral">&quot;mohseni&quot;</span>, 19, <span class="stringliteral">&quot;uno&quot;</span> };</div>
+<div class="line"><span class="keyword">struct </span>persona p2 = { <span class="stringliteral">&quot;filippo&quot;</span>, <span class="stringliteral">&quot;niki&quot;</span>, 20, <span class="stringliteral">&quot;due&quot;</span> };</div>
+<div class="line"><span class="keyword">struct </span>persona p3 = { <span class="stringliteral">&quot;alberto&quot;</span>, <span class="stringliteral">&quot;biki&quot;</span>, 14, <span class="stringliteral">&quot;uno&quot;</span> };</div>
+<div class="line"><span class="keyword">struct </span>persona p4 = { <span class="stringliteral">&quot;michele&quot;</span>, <span class="stringliteral">&quot;tiki&quot;</span>, 29, <span class="stringliteral">&quot;uno&quot;</span> };</div>
+<div class="line"><span class="keyword">struct </span>persona p5 = { <span class="stringliteral">&quot;riccardo&quot;</span>, <span class="stringliteral">&quot;kimi&quot;</span>, 10, <span class="stringliteral">&quot;due&quot;</span> };</div>
+<div class="line"> </div>
+<div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p1, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
+<div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p2, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
+<div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p3, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
+<div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p4, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
+<div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p5, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
+</div><!-- fragment --><p> Let's define the function that will filter the list (ex. filter by categoria and eta) </p><div class="fragment"><div class="line"><span class="keywordtype">bool</span> filter_fun(<span class="keyword">const</span> <span class="keywordtype">void</span> *node_data) {</div>
+<div class="line">   <span class="keyword">const</span> <span class="keyword">struct </span>persona *data = node_data;</div>
+<div class="line">   <span class="keywordflow">return</span> data-&gt;eta &lt; 18 &amp;&amp; strcmp(data-&gt;categoria, <span class="stringliteral">&quot;uno&quot;</span>) == 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p> And if we call the function </p><div class="fragment"><div class="line"><span class="keyword">struct </span><a class="code" href="structnode.html">node</a> *filtered_list = <a class="code" href="list_8h.html#ae7062886fa702f8865ff5a70994876f5">filter</a>(list, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona), filter_fun); </div>
+</div><!-- fragment --><p> The result is: </p><pre class="fragment">filtered_list = { "alberto", "biki", 14, "uno" }; </pre> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td><code></code>(const <code>struct</code> <code>node*</code>) Const pointer to a struct node that rappresent the list </td></tr>
+    <tr><td class="paramname">data_size</td><td><code>size_t</code> size of the data </td></tr>
+    <tr><td class="paramname">compare</td><td><code>bool(*)</code>(const <code>void*</code>) function pointer that point to the condition function </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><code>NULL</code> if the list is empty</li>
+<li><code>newlist</code> <code></code>(struct <code>node*</code>) if the list isn't empty and there are elements that fit the condition </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
 <a id="a2c80ee5000d4aa103d472eb00c20fd5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c80ee5000d4aa103d472eb00c20fd5b">&#9670;&nbsp;</a></span>insert_head()</h2>
 
@@ -499,7 +571,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sort</b> (struct <a c
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li><code>NULL</code> if the list is empty</li>
-<li><code>void*</code> if the list isn't empty </li>
+<li><code>void*</code> to the area of the memory if the list isn't empty </li>
 </ul>
 </dd></dl>
 
@@ -553,7 +625,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sort</b> (struct <a c
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li><code>NULL</code> if the list is empty</li>
-<li><code>void*</code> if the list isn't empty </li>
+<li><code>void*</code> to the area of the memory if the list isn't empty </li>
 </ul>
 </dd></dl>
 
@@ -565,6 +637,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sort</b> (struct <a c
 <div class="ttc" id="alist_8h_html_a2c80ee5000d4aa103d472eb00c20fd5b"><div class="ttname"><a href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a></div><div class="ttdeci">struct node * insert_head(struct node *list, const void *data, size_t data_size)</div><div class="ttdoc">Insert a new node at the head.</div></div>
 <div class="ttc" id="alist_8h_html_a951ef51ed47fe41133ba1b2e357bab17"><div class="ttname"><a href="list_8h.html#a951ef51ed47fe41133ba1b2e357bab17">max_list</a></div><div class="ttdeci">void * max_list(const struct node *list, int(*compare)(void *a, void *b))</div><div class="ttdoc">Calculate the max of the list.</div></div>
 <div class="ttc" id="alist_8h_html_a16fb0960f3c79b071bd205359eb4fa4a"><div class="ttname"><a href="list_8h.html#a16fb0960f3c79b071bd205359eb4fa4a">min_list</a></div><div class="ttdeci">void * min_list(const struct node *list, int(*compare)(void *a, void *b))</div><div class="ttdoc">Calculate the min of the list.</div></div>
+<div class="ttc" id="alist_8h_html_ae7062886fa702f8865ff5a70994876f5"><div class="ttname"><a href="list_8h.html#ae7062886fa702f8865ff5a70994876f5">filter</a></div><div class="ttdeci">struct node * filter(const struct node *list, size_t data_size, bool(*compare)(const void *node))</div><div class="ttdoc">filter the list</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['max_5flist_25',['max_list',['../list_8h.html#a951ef51ed47fe41133ba1b2e357bab17',1,'list.h']]],
-  ['min_5flist_26',['min_list',['../list_8h.html#a16fb0960f3c79b071bd205359eb4fa4a',1,'list.h']]]
+  ['insert_5fhead_25',['insert_head',['../list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b',1,'list.h']]],
+  ['is_5fempty_26',['is_empty',['../list_8h.html#a35c418dd33a233908610afd0285a8c8b',1,'list.h']]]
 ];
