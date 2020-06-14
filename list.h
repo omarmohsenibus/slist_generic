@@ -12,7 +12,6 @@
 struct node {
 	void *data;
 	struct node *next;
-
 };
 
 enum mode {
