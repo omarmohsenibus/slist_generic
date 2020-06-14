@@ -557,13 +557,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sort</b> (struct <a c
 <div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p1, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
 <div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p2, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
 </div><!-- fragment --><p> Let's define the function that compares two struct persona (ex. compare by the age) </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> compare_persona(<span class="keywordtype">void</span> *a, <span class="keywordtype">void</span> *b){</div>
-<div class="line">  <span class="keyword">struct </span>persona *pa = a;</div>
-<div class="line">  <span class="keyword">struct </span>persona *pb = b;</div>
-<div class="line">  <span class="keywordflow">return</span> pa-&gt;age - pb-&gt;age;</div>
+<div class="line">    <span class="keyword">struct </span>persona *pa = a;</div>
+<div class="line">    <span class="keyword">struct </span>persona *pb = b;</div>
+<div class="line">    <span class="keywordflow">return</span> pa-&gt;age - pb-&gt;age;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p> And if we call the function </p><div class="fragment"><div class="line"><span class="keyword">struct </span>persona max = <a class="code" href="list_8h.html#a951ef51ed47fe41133ba1b2e357bab17">max_list</a>(list, compare_persona); </div>
-</div><!-- fragment --><p> The result is: </p><pre class="fragment">* @p max = { "valerio", 29 }
-* </pre> <dl class="params"><dt>Parameters</dt><dd>
+</div><!-- fragment --><p> The result is: </p><pre class="fragment">max = { "valerio", 29 }; </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">list</td><td><code></code>(const <code>struct</code> <code>node*</code>) Const pointer to a struct node that rappresent the list </td></tr>
   </table>
@@ -611,13 +610,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sort</b> (struct <a c
 <div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p1, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
 <div class="line">list = <a class="code" href="list_8h.html#a2c80ee5000d4aa103d472eb00c20fd5b">insert_head</a>(list, &amp;p2, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> persona));</div>
 </div><!-- fragment --><p> Let's define the function that compares two struct persona (ex. compare by the age) </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> compare_persona(<span class="keywordtype">void</span> *a, <span class="keywordtype">void</span> *b){</div>
-<div class="line">  <span class="keyword">struct </span>persona *pa = a;</div>
-<div class="line">  <span class="keyword">struct </span>persona *pb = b;</div>
-<div class="line">  <span class="keywordflow">return</span> pa-&gt;age - pb-&gt;age;</div>
+<div class="line">    <span class="keyword">struct </span>persona *pa = a;</div>
+<div class="line">    <span class="keyword">struct </span>persona *pb = b;</div>
+<div class="line">    <span class="keywordflow">return</span> pa-&gt;age - pb-&gt;age;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p> And if we call the function </p><div class="fragment"><div class="line"><span class="keyword">struct </span>persona max = <a class="code" href="list_8h.html#a16fb0960f3c79b071bd205359eb4fa4a">min_list</a>(list, compare_persona); </div>
-</div><!-- fragment --><p> The result is: </p><pre class="fragment">* @p max = { "omar", 19 }
-* </pre> <dl class="params"><dt>Parameters</dt><dd>
+</div><!-- fragment --><p> The result is: </p><pre class="fragment">min = { "omar", 19 }; </pre> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">list</td><td><code></code>(const <code>struct</code> <code>node*</code>) Const pointer to a struct node that rappresent the list </td></tr>
   </table>

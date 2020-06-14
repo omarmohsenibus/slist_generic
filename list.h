@@ -216,9 +216,7 @@ extern void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(vo
  * struct persona max = min_list(list, compare_persona); 
  * @endcode  
  * The result is:
- * @verbatim
- * @p max = { "omar", 19 }
- * @endverbatim
+ * @verbatim min = { "omar", 19 }; @endverbatim
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
  * @return
  * - @brief @p NULL if the list is empty
@@ -258,9 +256,7 @@ extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
  * struct persona max = max_list(list, compare_persona); 
  * @endcode  
  * The result is:
- * @verbatim
- * @p max = { "valerio", 29 }
- * @endverbatim
+ * @verbatim max = { "valerio", 29 }; @endverbatim
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
  * @return
  * - @brief @p NULL if the list is empty
