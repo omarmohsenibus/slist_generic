@@ -77,25 +77,48 @@ void delete_head(struct node *list) {
 	}
 }
 
+void delete_at(int index, struct node *list){
+	if(list != NULL){
+		int n = count(list);
+		if(index > -1 && index < n){
+			int i = 0;
+			for(struct node *tmp = list; tmp != NULL; tmp = tmp->next){
+				if(i == index){
+					free(tmp->data);
+					free(tmp);
+					break;
+				}
+			}
+		}
+	}
+}
+
 
 void *min_list(const struct node *list, int(*compare)(void *a, void *b)) {
-	void *min = list->data;
-	for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
-		if (compare(min, tmp->data) > 0) {
-			min = tmp->data;
+	void *min = NULL;
+	if(list != NULL){
+		min = list->data;
+		for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+			if (compare(min, tmp->data) > 0) {
+				min = tmp->data;
+			}
 		}
 	}
 	return min;
 }
 void *max_list(const struct node *list, int(*compare)(void *a, void *b)) {
-	void *max = list->data;
-	for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
-		if (compare(max, tmp->data) < 0) {
-			max = tmp->data;
+	void *max = NULL;
+	if(list != NULL){
+		max = list->data;
+		for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+			if (compare(max, tmp->data) < 0) {
+				max = tmp->data;
+			}
 		}
 	}
 	return max;
 }
+
 const void *get_head_data(const struct node *list) {
 	void *result = NULL;
 
