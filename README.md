@@ -15,9 +15,9 @@ struct node {
 };
 ```
 ### Type of data supported
-:heavy_check_mark: Integers types
-:heavy_check_mark: Float types
-:heavy_check_mark: C strings
-:heavy_check_mark: Custom datatype (ex. struct)
+[x] Integers types
+[x] Float types
+[x] C strings
+[x] Custom datatype (ex. struct)
 
 ### Example
