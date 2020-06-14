@@ -15,9 +15,9 @@ struct node {
 };
 ```
 ### Type of data supported
-[x] Integers types
-[x] Float types
-[x] C strings
-[x] Custom datatype (ex. struct)
+- [x] Integers types
+- [x] Float types
+- [x] C strings
+- [x] Custom datatype (ex. struct)
 
 ### Example
