@@ -3,7 +3,7 @@ Implementation of single linked list generic in c
 
 
 
-this is the [documentation](https://pages.github.com/) of the data structure. 
+this is the [documentation](https://omarmohsenibus.github.io/slist_generic/index.html) of the data structure. 
 
 
 ### Container
