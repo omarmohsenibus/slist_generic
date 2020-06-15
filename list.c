@@ -156,6 +156,25 @@ const void *get_tail_data(const struct node *list) {
 	return result;
 }
 
+const void *get_data_at(int index, const struct node *list) {
+	void *result = NULL;
+	int n = count(list);
+	if (list != NULL && index > -1 && index < n) {
+		if (index == 0)	return get_head_data(list);
+		if (index == n - 1)	return get_tail_data(list);
+
+		int counter = 0;
+		for (struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+			if (index == counter) {
+				result = tmp->data;
+				break;
+			}
+			counter++;
+		}
+	}
+	return result;
+
+}
 
 
 struct node *insert_all(struct node *list, size_t data_size, size_t count, ...) {
