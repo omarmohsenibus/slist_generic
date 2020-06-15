@@ -28,8 +28,21 @@ struct node *insert_head(struct node *list, const void *data, size_t data_size) 
 	return new_node;
 }
 
-struct node *insert_tail(struct node *list, const void *data) {
-	return NULL;
+struct node *insert_tail(struct node *list, const void *data, size_t data_size) {
+	if (list != NULL) {
+		struct node *tmp = list;
+		while (tmp->next != NULL) {
+			tmp = tmp->next;
+		}
+		struct node *new_node = malloc(sizeof(struct node));
+		new_node->data = malloc(data_size);
+
+		memcpy(new_node->data, data, data_size);
+		new_node->next = NULL;
+		tmp->next = new_node;
+		return list;
+	}
+	return insert_head(list, data, data_size);
 }
 
 
@@ -39,7 +52,7 @@ struct node *insert_at(int index, struct node *list, const void *data, size_t da
 	size_t i = 0;
 
 	if (index == 0) return insert_head(list, data, data_size);
-	if (index == lenght) return insert_tail(list, data);
+	if (index == lenght) return insert_tail(list, data, data_size);
 
 	if (index > 0 && index < lenght) {
 		struct node *prev = NULL;

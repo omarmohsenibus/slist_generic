@@ -17,6 +17,8 @@ int main(void) {
 	struct node *list = NULL;
 	struct node *filtered_list = NULL;
 
+
+
 	persona p1 = { "omar", "mohseni", 19, "uno" };
 	persona p2 = { "filippo", "niki", 20, "due" };
 	persona p3 = { "alberto", "biki", 14, "uno" };

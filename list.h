@@ -59,7 +59,7 @@ extern struct node *insert_all(struct node *list, size_t data_size, size_t count
  * @warning Always return the result of the function to the list pointer because you lose the reference to that area of memory.
  */
 extern struct node *insert_head(struct node *list, const void *data, size_t data_size);
-extern struct node *insert_tail(struct node *list, const void *data);
+extern struct node *insert_tail(struct node *list, const void *data, size_t data_size);
 extern struct node *insert_at(int index, struct node *list, const void *data, size_t data_size);
 
 extern struct node *insert_from_bin_file(char *filename);
