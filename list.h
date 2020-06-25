@@ -17,12 +17,12 @@
 #include <stdarg.h>
 
 
-/**
- * @brief Basic node element
- *
- * This struct is the basic element what form a single linked list.It contains the info 
- * field and the reference to the next item of the list.
- */
+ /**
+  * @brief Basic node element
+  *
+  * This struct is the basic element what form a single linked list.It contains the info
+  * field and the reference to the next item of the list.
+  */
 struct node {
 	void *data; /**< This is the info field . */
 	struct node *next; /**< This is the reference field . */
@@ -49,10 +49,10 @@ extern struct node *insert_all(struct node *list, size_t data_size, size_t count
  * @param list @p (struct @p node*)  Pointer to a struct node that rappresent the list
  * @param data @p (void*) Pointer to a void that point to an area of heap memory that contains the data to insert
  * @param data_size @p (size_t) size of data
- * @return 
+ * @return
  * - @p (struct @p node*) Pointer to the head of the list
  * @note When you use C strings add the terminator in the count of the data_size
- * @code{.c} 
+ * @code{.c}
  * char name[] = "Luca";
  * struct node *list = insert_head(list, name, 1 + strlen(name));
  * @endcode
@@ -68,41 +68,42 @@ extern struct node *update_at(int index, struct node *list, const void *data, si
 
 /**
  * @brief delete all list elements
- * 
- * This function deletes all list elements  
+ *
+ * This function deletes all list elements
  * @param list @p (struct @p node*)  Pointer to a struct node that rappresent the list
  * */
 extern void delete(struct node *list);
 /**
  * @brief delete head
- * 
- * This function deletes the head of the list  
+ *
+ * This function deletes the head of the list
  * @param list @p (struct @p node*)  Pointer to a struct node that rappresent the list
  * */
-extern void delete_head(struct node *list);
+extern void delete_head(struct node **list);
 /**
  * @brief delete tail
- * 
- * This function deletes the tail of the list  
+ *
+ * This function deletes the tail of the list
  * @param list @p (struct @p node*)  Pointer to a struct node that rappresent the list
  * */
-extern void delete_tail(struct node *list);
+extern void delete_tail(struct node **list);
 /**
  * @brief delete at the position
- * 
- * This function deletes the node that it's at @param index position  
+ *
+ * This function deletes the node that it's at @param index position
  * @param list @p (struct @p node*)  Pointer to a struct node that rappresent the list
  * @param index @p (int) Indicate the position of the element that have to be deleted
  * */
 extern void delete_at(int index, struct node *list);
 
 
+extern void delete_with_conditions(struct node **list, bool(*compare)(void *a, void *b));
 /**
  * @brief list empty
- * 
- * This function tests if the list is empty  
+ *
+ * This function tests if the list is empty
  * @param list @p (struct @p node*)  Pointer to a struct node that rappresent the list
- * @return 
+ * @return
  * 	- @brief @p true if the list is empty
  * 	- @brief @p false if the list isn't empty
  */
@@ -110,8 +111,8 @@ extern bool is_empty(const struct node *list);
 
 /**
  * @brief count item's list
- * 
- * This function count how many elements are in the list  
+ *
+ * This function count how many elements are in the list
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
  * @return
  * - @brief @p zero if the list is empty
@@ -131,10 +132,10 @@ extern struct node *find(int index, const struct node *list);
 
 /**
  * @brief filter the list
- * 
+ *
  * This function return a new list with the elements that
  * satisfy the conditions in the function pointer
- * 
+ *
  * @p Example
  * Let's define this structure
  * @code{.c}
@@ -147,13 +148,13 @@ extern struct node *find(int index, const struct node *list);
  * @endcode
  * Then fill the list of struct persona
  * @code{.c}
- * 
+ *
  * struct persona p1 = { "omar", "mohseni", 19, "uno" };
  * struct persona p2 = { "filippo", "niki", 20, "due" };
  * struct persona p3 = { "alberto", "biki", 14, "uno" };
  * struct persona p4 = { "michele", "tiki", 29, "uno" };
  * struct persona p5 = { "riccardo", "kimi", 10, "due" };
- * 
+ *
  * list = insert_head(list, &p1, sizeof(struct persona));
  * list = insert_head(list, &p2, sizeof(struct persona));
  * list = insert_head(list, &p3, sizeof(struct persona));
@@ -167,10 +168,10 @@ extern struct node *find(int index, const struct node *list);
  *	return data->eta < 18 && strcmp(data->categoria, "uno") == 0;
  * }
  * @endcode
- * And if we call the function 
+ * And if we call the function
  * @code{.c}
- * struct node *filtered_list = filter(list, sizeof(struct persona), filter_fun); 
- * @endcode  
+ * struct node *filtered_list = filter(list, sizeof(struct persona), filter_fun);
+ * @endcode
  * The result is:
  * @verbatim filtered_list = { "alberto", "biki", 14, "uno" }; @endverbatim
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
@@ -182,11 +183,13 @@ extern struct node *find(int index, const struct node *list);
  */
 extern struct node *filter(const struct node *list, size_t data_size, bool(*compare)(const void *node));
 extern struct node *reverse(const struct node *list);
+
+extern struct node *append(const struct node *list_a, const struct node *list_b);
 extern void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(void *a, void *b), int MODE);
 
 /**
  * @brief Calculate the min of the list
- * 
+ *
  * This function returns the min of the list.The user pass a function pointer to the function
  * that rappresent the criteria that two memory object are compared.
  * @p Example
@@ -196,10 +199,10 @@ extern void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(vo
  * @endcode
  * Then fill the list of struct persona
  * @code{.c}
- * 
+ *
  * struct persona p1 = { "omar", 19 };
  * struct persona p2 = { "valerio", 29};
- * 
+ *
  * list = insert_head(list, &p1, sizeof(struct persona));
  * list = insert_head(list, &p2, sizeof(struct persona));
  * @endcode
@@ -211,10 +214,10 @@ extern void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(vo
  * 	return pa->age - pb->age;
  * }
  * @endcode
- * And if we call the function 
+ * And if we call the function
  * @code{.c}
- * struct persona max = min_list(list, compare_persona); 
- * @endcode  
+ * struct persona max = min_list(list, compare_persona);
+ * @endcode
  * The result is:
  * @verbatim min = { "omar", 19 }; @endverbatim
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list
@@ -226,7 +229,7 @@ extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
 
 /**
  * @brief Calculate the max of the list
- * 
+ *
  * This function returns the max of the list.The user pass a function pointer to the function
  * that rappresent the criteria that two memory object are compared.
  * @p Example
@@ -236,10 +239,10 @@ extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
  * @endcode
  * Then fill the list of struct persona
  * @code{.c}
- * 
+ *
  * struct persona p1 = { "omar", 19 };
  * struct persona p2 = { "valerio", 29};
- * 
+ *
  * list = insert_head(list, &p1, sizeof(struct persona));
  * list = insert_head(list, &p2, sizeof(struct persona));
  * @endcode
@@ -251,10 +254,10 @@ extern void *min_list(const struct node *list, int(*compare)(void *a, void *b));
  * 	return pa->age - pb->age;
  * }
  * @endcode
- * And if we call the function 
+ * And if we call the function
  * @code{.c}
- * struct persona max = max_list(list, compare_persona); 
- * @endcode  
+ * struct persona max = max_list(list, compare_persona);
+ * @endcode
  * The result is:
  * @verbatim max = { "valerio", 29 }; @endverbatim
  * @param list @p (const @p struct @p node*)  Const pointer to a struct node that rappresent the list

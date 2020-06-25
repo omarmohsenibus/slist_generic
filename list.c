@@ -81,22 +81,33 @@ void delete(struct node *list) {
 		free(tmp);
 	}
 }
-void delete_head(struct node *list) {
+
+void delete_tail(struct node **list) {
 	if (list != NULL) {
-		struct node *tmp = list;
-		list = tmp->next;
+		struct node *tmp = *list;
+		while (tmp->next != NULL) {
+			tmp = tmp->next;
+		}
+	}
+}
+
+void delete_head(struct node **list) {
+	if (list != NULL) {
+		struct node *tmp = *list;
+		*list = tmp->next;
 		tmp->next = NULL;
+		free(tmp->data);
 		free(tmp);
 	}
 }
 
-void delete_at(int index, struct node *list){
-	if(list != NULL){
+void delete_at(int index, struct node *list) {
+	if (list != NULL) {
 		int n = count(list);
-		if(index > -1 && index < n){
+		if (index > -1 && index < n) {
 			int i = 0;
-			for(struct node *tmp = list; tmp != NULL; tmp = tmp->next){
-				if(i == index){
+			for (struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+				if (i == index) {
 					free(tmp->data);
 					free(tmp);
 					break;
@@ -106,10 +117,20 @@ void delete_at(int index, struct node *list){
 	}
 }
 
+void delete_with_conditions(struct node **list, bool(*compare)(void *a, void *b)) {
+	if (*list != NULL) {
+		int n = count(list);
+		for (int i = 0; i < n; i++) {
+			if (compare(NULL, NULL)) {
+				delete_at(i, *list);
+			}
+		}
+	}
+}
 
 void *min_list(const struct node *list, int(*compare)(void *a, void *b)) {
 	void *min = NULL;
-	if(list != NULL){
+	if (list != NULL) {
 		min = list->data;
 		for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
 			if (compare(min, tmp->data) > 0) {
@@ -121,7 +142,7 @@ void *min_list(const struct node *list, int(*compare)(void *a, void *b)) {
 }
 void *max_list(const struct node *list, int(*compare)(void *a, void *b)) {
 	void *max = NULL;
-	if(list != NULL){
+	if (list != NULL) {
 		max = list->data;
 		for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
 			if (compare(max, tmp->data) < 0) {
@@ -164,7 +185,7 @@ const void *get_data_at(int index, const struct node *list) {
 		if (index == n - 1)	return get_tail_data(list);
 
 		int counter = 0;
-		for (struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
+		for (const struct node *tmp = list; tmp != NULL; tmp = tmp->next) {
 			if (index == counter) {
 				result = tmp->data;
 				break;
@@ -221,6 +242,38 @@ struct node *filter(const struct node *list, size_t data_size, bool(*compare)(co
 	return filtered_list;
 }
 
+struct node *reverse(const struct node *list) {
+	struct node *result = NULL;
+	if (list != NULL) {
+		int n = count(list);
+		for (int i = 0; i < n; i++) {
+			const void *data = get_data_at(i, list);
+			result = insert_head(list, data, sizeof data);
+		}
+	}
+
+	return result;
+}
+
+struct node *append(const struct node *list_a, const struct node *list_b) {
+	struct node *ret = NULL;
+	if (list_a != NULL || list_b != NULL) {
+		int n_a = count(list_a);
+		int n_b = count(list_b);
+
+		for (int i = 0; i < n_a; i++) {
+			const void *data = get_data_at(i, list_a);
+			ret = insert_at(i, ret, data, sizeof data);
+		}
+
+		for (int i = 0; i < n_b; i++) {
+			const void *data = get_data_at(i, list_b);
+			ret = insert_at(i + n_a, ret, data, sizeof data);
+		}
+	}
+	return ret;
+}
+
 struct node* find(int index, const struct node *list) {
 	struct node *node = NULL;
 	int len = count(list);
@@ -259,17 +312,17 @@ void sort(struct node **list, int(*cmp)(void *a, void *b), void(*swap)(void *a, 
 		while (curr != NULL) {
 			succ = (*list)->next;
 			while (succ != NULL) {
-				switch (MODE){
-					case ASC:
-						if (cmp(curr->data, succ->data) > 0) {
-							swap(curr->data, succ->data);
-						}
-						break;
-					case DESC:
-						if (cmp(curr->data, succ->data) < 0) {
-							swap(curr->data, succ->data);
-						}
-						break;
+				switch (MODE) {
+				case ASC:
+					if (cmp(curr->data, succ->data) > 0) {
+						swap(curr->data, succ->data);
+					}
+					break;
+				case DESC:
+					if (cmp(curr->data, succ->data) < 0) {
+						swap(curr->data, succ->data);
+					}
+					break;
 				}
 				succ = succ->next;
 			}
